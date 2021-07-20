@@ -33,6 +33,8 @@ matrixpad(M, y, x, r, c) := block([M:M, rows, cols], [
             M : addcol(M, makelist(0, rows)),
     return(M)
 ])$
+
+
 /* [wxMaxima: input   end   ] */
 
 
