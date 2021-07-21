@@ -1,0 +1,10 @@
+/* [wxMaxima: input   start ] */
+dof(b) := block([d, dd, s : nounify(b)], [
+    b :: s(t),
+    concat(d, s) :: diff(s(t), t),
+    concat(dd, s) :: diff(s(t), t, 2)
+])$
+/* [wxMaxima: input   end   ] */
+
+
+
