@@ -3,8 +3,7 @@
 rflip(M) := genmatrix(lambda([i, j], M[length(M)+1-i, j]), length(M), length(transpose(M)))$
 cflip(M) := genmatrix(lambda([i, j], M[i, length(transpose(M))+1-j]), length(M), length(transpose(M)))$
 
-/*matrixpad adds zero rows and columns*/
-matrixpad(M, y, x, r, c) := block([M:M, rows, cols], [
+matpad(M, y, x, r, c) := block([M:M, rows, cols], [
     /*Shift rows*/
     cols : length(transpose(M)),
     if y > 0 then block([], [
@@ -32,6 +31,37 @@ matrixpad(M, y, x, r, c) := block([M:M, rows, cols], [
         for k from 1 thru c do
             M : addcol(M, makelist(0, rows)),
     return(M)
+])$
+
+matexplode(M, y, x, r, c) := block([M:M, rows, cols], [
+    M1 : copymatrix(M),
+    M2 : copymatrix(M),
+    M3 : copymatrix(M),
+    M4 : copymatrix(M),
+    rows : length(M),
+    cols : length(transpose(M)),
+    for k from 0 thru rows-x-1 do [
+        M1 : submatrix(rows - k, M1),
+        M2 : submatrix(rows - k, M2)
+    ],
+    for k from 0 thru cols-y-1 do [
+        M1 : submatrix(M1, cols - k),
+        M3 : submatrix(M3, cols - k)
+    ],
+    for k from 1 thru y do [
+        M2 : submatrix(M2, 1),
+        M4 : submatrix(M4, 1)
+    ],
+    for k from 1 thru x do [
+        M3 : submatrix(1, M3),
+        M4 : submatrix(1, M4)
+    ],
+    return(
+        matpad(M1, 0, 0, rows - x + r, cols - y + c)+
+        matpad(M2, 0, y + c, rows - x + r, 0)+
+        matpad(M3, x + r, 0, 0, cols - y + c)+
+        matpad(M4, x + r, y + c, 0, 0)
+    )
 ])$
 /* [wxMaxima: input   end   ] */
 
