@@ -1,13 +1,12 @@
 /* [wxMaxima: input   start ] */
 /*keep adds equations to a list of equations L, making sure the left sides don't repeat*/
-keep('L, eqs) := block([],
+keep(eqs, 'L) := block([],
     maplist(lambda([eq], L :: delete(lhs(eq)=assoc(lhs(eq), ev(L)), ev(L))), eqs),
     maplist(lambda([eq], L :: append(ev(L), [eq])), eqs),
     ev(L)
 )$
-
 /*evrhs evaluates only the right side of list of equations*/
-evrhs(eqs, [L]) := maplist(lambda([eq], lhs(eq) = float(ev(rhs(eq), L))), %)$
+evrhs(eqs, [L]) := maplist(lambda([eq], lhs(eq) = float(ev(rhs(eq), L))), eqs)$
 /* [wxMaxima: input   end   ] */
 
 
