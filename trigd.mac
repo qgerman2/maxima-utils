@@ -1,0 +1,9 @@
+/* [wxMaxima: input   start ] */
+deg2rad(a) := a*%pi/180$
+cosd(a) := cos(deg2rad(a))$
+sind(a) := sin(deg2rad(a))$
+tand(a) := tan(deg2rad(a))$
+/* [wxMaxima: input   end   ] */
+
+
+

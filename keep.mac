@@ -5,6 +5,9 @@ keep('L, eqs) := block([],
     maplist(lambda([eq], L :: append(ev(L), [eq])), eqs),
     ev(L)
 )$
+
+/*evrhs evaluates only the right side of list of equations*/
+evrhs(eqs, [L]) := maplist(lambda([eq], lhs(eq) = float(ev(rhs(eq), L))), %)$
 /* [wxMaxima: input   end   ] */
 
 
