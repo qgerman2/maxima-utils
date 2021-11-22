@@ -33,13 +33,15 @@ matpad(M, y, x, r, c) := block([M:M, rows, cols], [
     return(M)
 ])$
 
-matexplode(M, y, x, r, c) := block([M:M, rows, cols], [
+matexplode(M, y, x, r, c) := block([M:M, rows, cols, R], [
     M1 : copymatrix(M),
     M2 : copymatrix(M),
     M3 : copymatrix(M),
     M4 : copymatrix(M),
     rows : length(M),
     cols : length(transpose(M)),
+    if is(equal(rows, 1)) then x : 1,
+    if is(equal(cols, 1)) then y : 1,
     for k from 0 thru rows-x-1 do [
         M1 : submatrix(rows - k, M1),
         M2 : submatrix(rows - k, M2)
@@ -56,12 +58,22 @@ matexplode(M, y, x, r, c) := block([M:M, rows, cols], [
         M3 : submatrix(1, M3),
         M4 : submatrix(1, M4)
     ],
-    return(
-        matpad(M1, 0, 0, rows - x + r, cols - y + c)+
-        matpad(M2, 0, y + c, rows - x + r, 0)+
-        matpad(M3, x + r, 0, 0, cols - y + c)+
-        matpad(M4, x + r, y + c, 0, 0)
-    )
+    R : zeromatrix(rows + r, cols + c),
+    if is(equal(rows, 1)) then block([],
+        R : R + matpad(M1, 0, 0, 0, cols - y + c),
+        if is(notequal(cols, y)) then
+            R : R + matpad(M2, 0, y + c, 0, 0))
+    elseif is(equal(cols, 1)) then block([],
+        if (x > 0) then
+            R : R + matpad(M1, 0, 0, rows - x + r, cols - 1 + c),
+        if (x < rows) then
+            R : R + matpad(M3, x + r, 0, 0, cols - 1 + c))
+    else 
+        R : matpad(M1, 0, 0, rows - x + r, cols - y + c)+
+            matpad(M2, 0, y + c, rows - x + r, 0)+
+            matpad(M3, x + r, 0, 0, cols - y + c)+
+            matpad(M4, x + r, y + c, 0, 0),
+    return(R)
 ])$
 
 coleq2list(eq) := maplist(lambda([l, r], l[1]=r[1]), lhs(eq), rhs(eq));
