@@ -40,8 +40,8 @@ matexplode(M, y, x, r, c) := block([M:M, rows, cols, R], [
     M4 : copymatrix(M),
     rows : length(M),
     cols : length(transpose(M)),
-    if is(equal(rows, 1)) then x : 1,
-    if is(equal(cols, 1)) then y : 1,
+    if is(equal(rows, 1)) then block([], x : 1, r : 0),
+    if is(equal(cols, 1)) then block([], y : 1, c : 0),
     for k from 0 thru rows-x-1 do [
         M1 : submatrix(rows - k, M1),
         M2 : submatrix(rows - k, M2)
