@@ -63,7 +63,7 @@ matexplode(M, y, x, r, c) := block([M:M, rows, cols], [
         matpad(M4, x + r, y + c, 0, 0)
     )
 ])$
+
+coleq2list(eq) := maplist(lambda([l, r], l[1]=r[1]), lhs(eq), rhs(eq));
+
 /* [wxMaxima: input   end   ] */
-
-
-
