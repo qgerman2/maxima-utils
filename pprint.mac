@@ -1,0 +1,11 @@
+/* [wxMaxima: input   start ] */
+pprint('ex) := block([], 
+    simp : false,    
+    print(ex),
+    simp : true,
+    ex
+)$
+/* [wxMaxima: input   end   ] */
+
+
+
