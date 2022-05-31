@@ -2,7 +2,6 @@
 /*Helper functions to flip a matrix horizontally and vertically*/
 rflip(M) := genmatrix(lambda([i, j], M[length(M)+1-i, j]), length(M), length(transpose(M)))$
 cflip(M) := genmatrix(lambda([i, j], M[i, length(transpose(M))+1-j]), length(M), length(transpose(M)))$
-
 matpad(M, y, x, r, c) := block([M:M, rows, cols], [
     /*Shift rows*/
     cols : length(transpose(M)),
@@ -32,7 +31,6 @@ matpad(M, y, x, r, c) := block([M:M, rows, cols], [
             M : addcol(M, makelist(0, rows)),
     return(M)
 ])$
-
 matexplode(M, y, x, r, c) := block([M:M, rows, cols, R], [
     M1 : copymatrix(M),
     M2 : copymatrix(M),
@@ -75,7 +73,9 @@ matexplode(M, y, x, r, c) := block([M:M, rows, cols, R], [
             matpad(M4, x + r, y + c, 0, 0),
     return(R)
 ])$
-
 coleq2list(eq) := maplist(lambda([l, r], l[1]=r[1]), lhs(eq), rhs(eq));
-
+roweq2list(eq) := coleq2list(transpose(rhs(eq)) = transpose(lhs(eq)));
 /* [wxMaxima: input   end   ] */
+
+
+

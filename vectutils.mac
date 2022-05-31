@@ -1,0 +1,12 @@
+/* [wxMaxima: input   start ] */
+load(vect);
+load(ezunits);
+/* Cross product keeping units */
+infix("##");
+u ## v := express(qty(u)~qty(v))`units(u*v);
+/* Vector magnitude */
+mag(v) := sqrt(v.v);
+/* [wxMaxima: input   end   ] */
+
+
+

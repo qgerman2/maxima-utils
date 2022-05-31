@@ -1,0 +1,35 @@
+/* [wxMaxima: input   start ] */
+load(vect);
+load(ezunits);
+/* Cross product keeping units */
+infix("##");
+u ## v := 
+    if not listp(units(u)) and not listp(units(v)) then
+        express(qty(u)~qty(v))`units(u*v)
+    elseif not listp(units(u)) then
+        express(qty(u)~qty(v))`units(u)
+    elseif not listp(units(v)) then
+        express(qty(u)~qty(v))`units(v)
+    else
+        express(u~v)$
+/* Vector magnitude */
+mag(v) := block([],
+    if listp(units(v)) then
+        return(float(sqrt(v.v))),
+    float(sqrt(qty(v).qty(v)))`units(v)
+);
+/* Dot product keeping units */
+infix("..");
+u .. v := 
+    if not listp(units(u)) and not listp(units(v)) then
+        qty(u).qty(v)`units(u*v)
+    elseif not listp(units(u)) then
+        qty(u).qty(v)`units(u)
+    elseif not listp(units(v)) then
+        qty(u).qty(v)`units(v)
+    else
+        u.v$
+/* [wxMaxima: input   end   ] */
+
+
+
