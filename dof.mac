@@ -1,8 +1,9 @@
 /* [wxMaxima: input   start ] */
-dof(b) := block([d, dd, s : nounify(b)], [
-    b :: s(t),
-    concat(d, s) :: diff(s(t), t),
-    concat(dd, s) :: diff(s(t), t, 2)
+dof(x) := block([d, dd, run, cc1, cc2, s : nounify(x)], [
+    cc1 : concat(s),
+    cc2 : concat(d, s),
+    run : buildq([s, cc1, cc2], [gradef(cc1, t, cc2), gradef(cc2, t, concat(dd, s))]),
+    ev(run)
 ])$
 /* [wxMaxima: input   end   ] */
 
